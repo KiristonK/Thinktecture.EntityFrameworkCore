@@ -61,10 +61,11 @@ public abstract class DefaultSqlExpressionVisitor : SqlExpressionVisitor
    /// <inheritdoc />
    protected override Expression VisitIn(InExpression inExpression)
    {
-        return inExpression.Update((SqlExpression)Visit(inExpression.Item),
-                                    (SqlExpression?)Visit(inExpression.Values),
-                                    (SelectExpression?)Visit(inExpression.Subquery));
-    }
+      return inExpression.Update((SqlExpression)Visit(inExpression.Item),
+                                 (SelectExpression?)Visit(inExpression.Subquery),
+                                 Visit(new ReadOnlyCollection<SqlExpression>(inExpression.Values?.ToList() ?? new List<SqlExpression>()), (e) => (SqlExpression)Visit(e)),
+                                 inExpression.ValuesParameter);
+   }
 
    /// <inheritdoc />
    protected override Expression VisitLike(LikeExpression likeExpression)
@@ -342,6 +343,6 @@ public abstract class DefaultSqlExpressionVisitor : SqlExpressionVisitor
    /// <inheritdoc />
    protected override Expression VisitJsonScalar(JsonScalarExpression jsonScalarExpression)
    {
-      return jsonScalarExpression.Update((ColumnExpression)Visit(jsonScalarExpression.JsonColumn));
+      return jsonScalarExpression.Update((ColumnExpression)Visit(jsonScalarExpression.Json));
    }
 }
