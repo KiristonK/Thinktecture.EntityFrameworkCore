@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Thinktecture.EntityFrameworkCore.Internal;
@@ -19,8 +20,9 @@ public class ThinktectureSqlServerQuerySqlGenerator : SqlServerQuerySqlGenerator
    public ThinktectureSqlServerQuerySqlGenerator(
       QuerySqlGeneratorDependencies dependencies,
       IRelationalTypeMappingSource typeMappingSource,
+      ISqlServerSingletonOptions sqlServerSingletonOptions,
       ITenantDatabaseProvider databaseProvider)
-      : base(dependencies, typeMappingSource)
+      : base(dependencies, typeMappingSource, sqlServerSingletonOptions)
    {
       _databaseProvider = databaseProvider ?? throw new ArgumentNullException(nameof(databaseProvider));
    }
@@ -76,8 +78,26 @@ public class ThinktectureSqlServerQuerySqlGenerator : SqlServerQuerySqlGenerator
       return windowFunctionExpression;
    }
 
-   /// <inheritdoc />
-   protected override Expression VisitTable(TableExpression tableExpression)
+    /// <inheritdoc />
+    protected override Expression VisitColumn(ColumnExpression columnExpression)
+    {
+        ArgumentNullException.ThrowIfNull(columnExpression);
+        var cTable = columnExpression.Table;
+        while (cTable is SelectExpression selectExpression && cTable is not TableExpression)
+        {
+            cTable = selectExpression.Tables[0];
+        }
+        
+        var ignoredColumns = cTable.FindAnnotation(ThinktectureRelationalAnnotationNames.IGNORED_COLUMNS)?.Value as IReadOnlyList<string>;
+        if (ignoredColumns?.Contains(columnExpression.Name) ?? false)
+        {
+            Sql.Append($"NULL as {columnExpression.Name}");
+            return columnExpression;
+        }
+        return base.VisitColumn(columnExpression);
+    }
+    /// <inheritdoc />
+    protected override Expression VisitTable(TableExpression tableExpression)
    {
       ArgumentNullException.ThrowIfNull(tableExpression);
 
