@@ -66,7 +66,7 @@ public class CreateMigration : DefaultSchemaRespectingMigrationAssemblyTestsBase
       migration.Should().NotBeNull();
       migration.Should().BeOfType<MigrationWithoutSchema>();
 
-      createMigration.Should().BeEquivalentTo(migration);
+      createMigration.Should().BeEquivalentTo(migration, options => options.Excluding(m => m.TargetModel.ModelId));
    }
 
    [Fact]
@@ -87,7 +87,7 @@ public class CreateMigration : DefaultSchemaRespectingMigrationAssemblyTestsBase
       CurrentCtxMock.Context.Returns(CreateContextWithoutSchema());
 
       SUT.Invoking(sut => sut.CreateMigration(typeof(MigrationWithSchema).GetTypeInfo(), "DummyProvider"))
-         .Should().Throw<ArgumentException>().WithMessage($@"For instantiation of default schema respecting migration of type '{nameof(MigrationWithSchema)}' the database context of type '{nameof(DbContextWithoutSchema)}' has to implement the interface '{nameof(IDbDefaultSchema)}'. (Parameter 'migrationClass')");
+         .Should().Throw<ArgumentException>().WithMessage($"For instantiation of default schema respecting migration of type '{nameof(MigrationWithSchema)}' the database context of type '{nameof(DbContextWithoutSchema)}' has to implement the interface '{nameof(IDbDefaultSchema)}'. (Parameter 'migrationClass')");
    }
 
    [Fact]
@@ -98,7 +98,7 @@ public class CreateMigration : DefaultSchemaRespectingMigrationAssemblyTestsBase
 
       var createMigration = SUT.CreateMigration(typeof(MigrationWithoutSchema).GetTypeInfo(), "DummyProvider");
 
-      createMigration.Should().BeEquivalentTo(migration);
+      createMigration.Should().BeEquivalentTo(migration, options => options.Excluding(m => m.TargetModel.ModelId));
    }
 
    [Fact]

@@ -1,6 +1,8 @@
 # Thinktecture.EntityFrameworkCore
 
 [![Build Status](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_apis/build/status/Thinktecture.EntityFrameworkCore/Thinktecture.EntityFrameworkCore%20CI?branchName=master)](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_build/latest?definitionId=4&branchName=master)
+![NuGet Downloads](https://img.shields.io/nuget/dt/Thinktecture.EntityFrameworkCore.Relational)
+
 
 [![Thinktecture.EntityFrameworkCore.Relational](https://img.shields.io/nuget/vpre/Thinktecture.EntityFrameworkCore.Relational.svg?label=Thinktecture.EntityFrameworkCore.Relational&maxAge=3600)](https://www.nuget.org/packages/Thinktecture.EntityFrameworkCore.Relational/)  
 [![Thinktecture.EntityFrameworkCore.SqlServer](https://img.shields.io/nuget/vpre/Thinktecture.EntityFrameworkCore.SqlServer.svg?label=Thinktecture.EntityFrameworkCore.SqlServer&maxAge=3600)](https://www.nuget.org/packages/Thinktecture.EntityFrameworkCore.SqlServer/)  
@@ -23,7 +25,7 @@ Use the [repo on GitHub](https://github.com/PawelGerr/Thinktecture.EntityFramewo
 
 ## Features
 * [Collection Parameters (temp-tables *light*)](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_wiki/wikis/Thinktecture.EntityFrameworkCore.wiki/109/Collection-Parameters-(temp-tables-light)) (SQL Server)
-* [RowNumber Support](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_wiki/wikis/Thinktecture.EntityFrameworkCore.wiki/14/RowNumber-Support)
+* [Window Functions Support (RowNumber, Sum, Average, Min, Max)](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_wiki/wikis/Thinktecture.EntityFrameworkCore.wiki?wikiVersion=GBwikiMaster&pagePath=/Features/Window%20Functions%20Support%20(RowNumber%2C%20Sum%2C%20Average%2C%20Min%2C%20Max)&pageId=14&_a=edit)
 * [Nested (virtual) Transactions](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_wiki/wikis/Thinktecture.EntityFrameworkCore.wiki/40/Nested-(virtual)-Transactions)
 * [Table Hints](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_wiki/wikis/Thinktecture.EntityFrameworkCore.wiki/71/Table-Hints-(SQL-Server)) (SQL Server)
 * [Queries accross multiple databases](https://dev.azure.com/pawelgerr/Thinktecture.EntityFrameworkCore/_wiki/wikis/Thinktecture.EntityFrameworkCore.wiki/43/Queries-accross-multiple-databases) (SQL Server)

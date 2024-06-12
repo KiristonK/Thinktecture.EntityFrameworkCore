@@ -1,19 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Thinktecture.EntityFrameworkCore.BulkOperations\Thinktecture.EntityFrameworkCore.BulkOperations.csproj" />
     </ItemGroup>
     
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     </ItemGroup>
 
-	<ItemGroup>
-		<Using Include="Microsoft.EntityFrameworkCore" />
-	</ItemGroup>
 </Project>
